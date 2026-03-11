@@ -4,7 +4,7 @@ import User from '../modal/User.js';
 import TryCatch from '../middlewares/trycatch.js';
 import { AuthenticatedRequest } from '../middlewares/isAuth.js';
 
-import { oauth2client } from '../connfig/googleConfig.js';
+import { oauth2client } from '../config/googleConfig.js';
 
 export const loginUser = TryCatch(async (req, res) => {
   const { code } = req.body;
