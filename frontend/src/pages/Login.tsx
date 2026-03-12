@@ -5,9 +5,13 @@ import { authService } from '../main';
 import toast from 'react-hot-toast';
 import { useGoogleLogin } from '@react-oauth/google';
 import { FcGoogle } from 'react-icons/fc';
+import { useAppData } from '../context/AppContext';
+
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  const { setUser, setIsAuth } = useAppData();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const responceGoogle = async (authResult: any) => {
@@ -19,6 +23,8 @@ const Login = () => {
       localStorage.setItem('token', result.data.token);
       toast.success(result.data.message);
       setLoading(false);
+      setIsAuth(true);
+      setUser(result.data.user);
       navigate('/');
     } catch (err) {
       toast.error('Problem while lohin.');
