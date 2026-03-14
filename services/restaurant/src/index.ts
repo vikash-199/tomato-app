@@ -9,6 +9,6 @@ const app = express();
 const PORT = process.env.PORT || 5001;
 
 app.listen(PORT, () => {
-  console.log(`Auth server is running on port ${PORT}`);
+  console.log(`restaurant server is running on port ${PORT}`);
   connectDB();
 });
