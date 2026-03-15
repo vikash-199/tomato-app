@@ -8,8 +8,14 @@ import PublicRoute from './components/publicRoute';
 import SelectRole from './pages/SelectRole';
 import Navbar from './components/navbar';
 import { Account } from './pages/Account';
+import { useAppData } from './context/AppContext';
+import Restrauant from './pages/Restrauant';
 
 const App = () => {
+  const { user } = useAppData();
+  if (user && user.role === 'seller') {
+    return <Restrauant />;
+  }
   return (
     <>
       <BrowserRouter>
