@@ -54,6 +54,7 @@ export const addRestraunt = TryCatch(async (req: AuthenticatedRequest, res) => {
       coordinates: [Number(longitude), Number(latitude)],
       formattedAddress,
     },
+    isVerified: false,
   });
   return res
     .status(201)
@@ -65,9 +66,9 @@ export const fetchMyRestaurant = TryCatch(
     if (!req.user) {
       return res.status(401).json({ message: 'Please login' });
     }
-    const restaurent = await Restaurant.findOne({ ownerId: req.user._id });
-    if (!restaurent) {
-      return res.status(401).json({ message: 'Invalid user' });
+    const restaurant = await Restaurant.findOne({ ownerId: req.user._id });
+    if (!restaurant) {
+      return res.status(401).json({ message: 'No restarurant found' });
     }
 
     if (!req.user.restaurantId) {
@@ -75,14 +76,14 @@ export const fetchMyRestaurant = TryCatch(
         {
           user: {
             ...req.user,
-            restaurentId: restaurent._id,
+            restaurantId: restaurant._id,
           },
         },
         process.env.JWT_SEC as string,
         { expiresIn: '15d' },
       );
-      return res.json({ restaurent, token });
+      return res.json({ restaurant, token });
     }
-    res.json({ restaurent });
+    res.json({ restaurant });
   },
 );

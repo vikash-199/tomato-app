@@ -70,6 +70,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
             data.address.village ||
             'Your Location',
         );
+        setLoadingLocation(false);
       } catch (err) {
         setLocation({
           latitude,
@@ -77,6 +78,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
           formattedAddress: 'Current Location',
         });
         setCity('Faild to load');
+        setLoadingLocation(false);
       }
     });
   }, []);
