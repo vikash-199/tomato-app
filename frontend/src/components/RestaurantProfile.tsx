@@ -28,7 +28,7 @@ function RestaurantProfile({ restaurant, isSeller, onUpdate }: props) {
           },
         },
       );
-      toast.success(data.message);
+      toast.success('Status updated');
       setIsOpen(data.restaurant.isOpen);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
@@ -49,8 +49,9 @@ function RestaurantProfile({ restaurant, isSeller, onUpdate }: props) {
           },
         },
       );
+      toast.success('Restaurant updated');
       onUpdate(data.restaurant);
-      toast.success(data.message);
+      setEditMode(false);
     } catch (error) {
       console.log();
       toast.error('Fail to update.');
