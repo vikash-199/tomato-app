@@ -40,6 +40,25 @@ export const MenuItems = ({
       toast.error('Failed to delete item');
     }
   };
+  const toggleAvaiblity = async (itemId: string) => {
+    try {
+      const { data } = await axios.put(
+        `${restaurantService}/api/item/status/${itemId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        },
+      );
+
+      toast.success(data.message);
+      onItemDeleted();
+    } catch (err) {
+      console.log(err);
+      toast.error('Failed to update status');
+    }
+  };
   return (
     <div className="grid gridcols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {items.map((item) => {
@@ -75,7 +94,7 @@ export const MenuItems = ({
                 {isSeller && (
                   <div className="flex gap-2">
                     <button
-                      onClick={() => {}}
+                      onClick={() => toggleAvaiblity(item._id)}
                       className="rounded-lg p-2 text-gray-600 hover:bg-gray-100"
                     >
                       {item.isAvailable ? (
